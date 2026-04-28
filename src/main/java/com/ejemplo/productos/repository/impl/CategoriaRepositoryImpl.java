@@ -13,6 +13,7 @@ import java.util.Optional;
 public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     private List<Categoria> categorias = new ArrayList<>();
+    private Long nextId = 1L;
 
     public CategoriaRepositoryImpl(List<Categoria> categorias) {
         this.categorias = categorias;
@@ -36,7 +37,14 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public Categoria save(Categoria categoria) {
-        return null;
+
+        if (categoria.getId() == null) {
+            categoria.setId(nextId++);
+        }
+
+        categorias.add(categoria);
+
+        return categoria;
     }
 
     @Override

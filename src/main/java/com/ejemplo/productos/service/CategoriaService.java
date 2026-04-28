@@ -9,23 +9,23 @@ import java.util.Optional;
 
 @Service
 public class CategoriaService {
-    private final CategoriaRepositoryImpl categoriaService;
+    private final CategoriaRepositoryImpl categoriaRepository;
 
-    public CategoriaService(CategoriaRepositoryImpl categoriaService) {
-        this.categoriaService = categoriaService;
+    public CategoriaService(CategoriaRepositoryImpl categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
     }
 
     public List<Categoria> listarCategorias(){
-        return categoriaService.findAll();
+        return categoriaRepository.findAll();
     }
 
     public Optional<Categoria> obtenerPorId(Long id){
         Optional<Categoria> categoria = categoriaRepository.findById(id);
-        return categoriaService.findById(id);
+        return categoriaRepository.findById(id);
     }
 
     public void guardarCategoria(Categoria categoria){
-        categoriaService.save(categoria);
+        categoriaRepository.save(categoria);
     }
 
     public void actualizarCategoria(Categoria categoria){
@@ -33,6 +33,6 @@ public class CategoriaService {
     }
 
     public void eliminarCategoria(Long id){
-        categoriaService.deleteById(id);
+        categoriaRepository.deleteById(id);
     }
 }

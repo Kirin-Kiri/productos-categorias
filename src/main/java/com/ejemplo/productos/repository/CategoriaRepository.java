@@ -12,5 +12,6 @@ public interface CategoriaRepository {
     public Categoria save(Categoria categoria);
 
     public void deleteById(Long id);
+
 }
 

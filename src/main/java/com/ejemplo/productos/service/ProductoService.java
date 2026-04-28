@@ -2,10 +2,12 @@ package com.ejemplo.productos.service;
 
 import com.ejemplo.productos.model.Producto;
 import com.ejemplo.productos.repository.impl.ProductoRepositoryImpl;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProductoService {
     private final ProductoRepositoryImpl productoRepository;
 
@@ -23,7 +25,7 @@ public class ProductoService {
 
     public void guardarProducto(Producto p){
         if(p.getNombre() == null || p.getNombre().isEmpty()){
-            throw new IllegalArgumentException("El nombre no puede ser nulo")
+            throw new IllegalArgumentException("El nombre no puede ser nulo");
         } else {
             p.setNombre(p.getNombre().toUpperCase());
             if (p.getCategoria() == null){
