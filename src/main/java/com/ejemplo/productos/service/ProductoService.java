@@ -1,7 +1,8 @@
 package com.ejemplo.productos.service;
 
+import com.ejemplo.productos.model.Categoria;
 import com.ejemplo.productos.model.Producto;
-import com.ejemplo.productos.repository.impl.ProductoRepositoryImpl;
+import com.ejemplo.productos.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,38 +10,39 @@ import java.util.Optional;
 
 @Service
 public class ProductoService {
-    private final ProductoRepositoryImpl productoRepository;
+    private final ProductoRepository productoRepository;
 
-    public ProductoService(ProductoRepositoryImpl productoRepository) {
+    public ProductoService(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
     }
 
-    public List<Producto> listarProductos(){
+    public List<Producto> listarProductos() {
         return productoRepository.findAll();
     }
 
-    public Optional<Producto> obtenerPorId(Long id){
+    public Optional<Producto> obtenerPorId(Long id) {
+        Optional<Producto> categoria = productoRepository.findById(id);
         return productoRepository.findById(id);
     }
 
-    public void guardarProducto(Producto p){
-        if(p.getNombre() == null || p.getNombre().isEmpty()){
+    public void guardarProducto(Producto p) {
+        if (p.getNombre() == null || p.getNombre().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser nulo");
         } else {
             p.setNombre(p.getNombre().toUpperCase());
-            if (p.getCategoria() == null){
-
+            if (p.getCategoria() == null) {
+                throw new IllegalArgumentException("La categoria no puede ser nulo");
+            } else {
+                productoRepository.save(p);
             }
         }
-
-        productoRepository.save(p);
     }
 
-    public void actualizarProducto(Producto p){
+    public void actualizarProducto(Producto p) {
         //TODO falta implementar la actualizacion en el repo
     }
 
-    public void eliminarProducto(Long id){
+    public void eliminarProducto(Long id) {
         productoRepository.deleteById(id);
     }
 }

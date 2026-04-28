@@ -11,15 +11,17 @@ import java.util.Optional;
 
 @Repository
 public class ProductoRepositoryImpl implements ProductoRepository {
-    List<Producto> productos = new ArrayList<>();
+    private List<Producto> productos;
+    private Long id;
 
     public ProductoRepositoryImpl() {
-        productos.add(new Producto(1L, "TOMATES", 2.6, "Tomates de MUtxamel", new Categoria()));
+        this.productos = new ArrayList<>();
+        this.id = 0L;
     }
 
     @Override
     public List<Producto> findAll() {
-        return List.of();
+        return productos;
     }
 
     @Override
@@ -29,21 +31,28 @@ public class ProductoRepositoryImpl implements ProductoRepository {
                 return Optional.of(producto);
             }
         }
-
         return Optional.empty();
     }
 
     @Override
     public Producto save(Producto p) {
-        productos.add(p);
-        return p;
+
+        p.setId(id++);
+        if (p.getNombre() == null || p.getNombre().isEmpty()) {
+            throw new IllegalArgumentException("El nombre producto no puede estar vacio");
+        } else if (p.getCategoria() == null) {
+            throw new IllegalArgumentException("La categoria no puede estar vacia");
+        } else {
+            productos.add(p);
+            return p;
+        }
     }
 
     @Override
     public void deleteById(Long id) {
-        for (Producto producto: productos){
-            if (producto.getId().equals(id)){
-
+        for (Producto producto : productos) {
+            if (producto.getId().equals(id)) {
+                productos.remove(producto);
             }
         }
     }

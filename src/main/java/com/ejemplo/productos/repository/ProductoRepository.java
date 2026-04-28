@@ -8,10 +8,10 @@ import java.util.Optional;
 public interface ProductoRepository {
 
     public List<Producto> findAll();
+
     public Optional<Producto> findById(Long id);
+
     public Producto save(Producto p);
+
     public void deleteById(Long id);
-
-
-
 }

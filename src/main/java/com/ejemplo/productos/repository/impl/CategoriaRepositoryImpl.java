@@ -12,16 +12,25 @@ import java.util.Optional;
 @Repository
 public class CategoriaRepositoryImpl implements CategoriaRepository {
 
-    private List<Categoria> categorias = new ArrayList<>();
-    private Long nextId = 1L;
+    private List<Categoria> categorias;
+    private Long id;
 
-    public CategoriaRepositoryImpl(List<Categoria> categorias) {
-        this.categorias = categorias;
+    public CategoriaRepositoryImpl() {
+        this.categorias = new ArrayList<>();
+        this.id = 0L;
     }
 
     @Override
     public List<Categoria> findAll() {
         return categorias;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -31,20 +40,18 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
                 return Optional.of(categoria);
             }
         }
-
         return Optional.empty();
     }
 
     @Override
     public Categoria save(Categoria categoria) {
-
-        if (categoria.getId() == null) {
-            categoria.setId(1L);
+        categoria.setId(id++);
+        if (categoria.getNombre() == null || categoria.getNombre().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la categoria no puede estar vacia");
+        } else {
+            categorias.add(categoria);
+            return categoria;
         }
-
-        categorias.add(categoria);
-
-        return categoria;
     }
 
     @Override
