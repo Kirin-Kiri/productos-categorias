@@ -21,7 +21,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public List<Categoria> findAll() {
-        return new ArrayList<>(categorias);
+        return categorias;
     }
 
     @Override
