@@ -21,7 +21,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public List<Categoria> findAll() {
-        return List.of();
+        return new ArrayList<>(categorias);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     public Categoria save(Categoria categoria) {
 
         if (categoria.getId() == null) {
-            categoria.setId(nextId++);
+            categoria.setId(1L);
         }
 
         categorias.add(categoria);
