@@ -5,11 +5,19 @@ import com.ejemplo.productos.repository.CategoriaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class CategoriaRepositoryImpl implements CategoriaRepository {
+
+    private List<Categoria> categorias = new ArrayList<>();
+
+    public CategoriaRepositoryImpl(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
     @Override
     public List<Categoria> findAll() {
         return List.of();
@@ -17,11 +25,13 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public Optional<Categoria> findById(Long id) {
-        for (Categoria categoria: categorias) {
-            if (categoria.getId() == id){
-                return new Optional
+        for (Categoria categoria : categorias) {
+            if (categoria.getId().equals(id)) {
+                return Optional.of(categoria);
             }
         }
+
+        return Optional.empty();
     }
 
     @Override
@@ -31,10 +41,6 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public void deleteById(Long id) {
-        for (Categoria categoria: categorias) {
-            if (categoria.getId().equals(id)){
-                return Optional.of(categoria);
-            }
-        }
+        categorias.removeIf(categoria -> categoria.getId().equals(id));
     }
 }

@@ -24,11 +24,13 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
     @Override
     public Optional<Producto> findById(Long id) {
-        for (Producto producto: productos){
-            if (producto.getId().equals(id)){
-
+        for (Producto producto : productos) {
+            if (producto.getId().equals(id)) {
+                return Optional.of(producto);
             }
         }
+
+        return Optional.empty();
     }
 
     @Override

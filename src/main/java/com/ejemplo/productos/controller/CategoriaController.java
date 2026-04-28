@@ -20,7 +20,7 @@ public class CategoriaController {
 
     @GetMapping
     public String listar(Model model){
-            model.addAttribute("categorias",categoriaService.listarCategorias(model));
+            model.addAttribute("categorias",categoriaService.listarCategorias());
             return "categorias";
     }
 
