@@ -1,11 +1,24 @@
 package com.ejemplo.productos.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "productos")
 public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "nombre_producto", nullable = false, length = 20)
     private String nombre;
+    @Column(name = "precio", nullable = true)
     private Double precio;
+    @Column(name = "descripcion", nullable = false, length = 500)
     private String descripcion;
+    //TODO pendiente crear relacion
     private Categoria categoria;
+
+    @Transient //No detecta el campo como columna
+    private int contador;
 
     public Producto() {
     }

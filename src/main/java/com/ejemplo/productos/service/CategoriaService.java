@@ -29,7 +29,6 @@ public class CategoriaService {
             throw new IllegalArgumentException("El nombre no puede ser nulo");
         } else {
             categoria.setNombre(categoria.getNombre().toUpperCase());
-
             categoriaRepository.save(categoria);
         }
     }
