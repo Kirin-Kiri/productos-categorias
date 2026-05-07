@@ -7,6 +7,7 @@ import com.ejemplo.productos.service.ProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,7 +25,7 @@ public class ProductoController {
     }
 
     @GetMapping
-    public String listar(Model model){
+    public String listar(Model model) {
         model.addAttribute("productos", productoService.listarProductos());
         model.addAttribute("categorias", categoriaService.listarCategorias());
         return "productos";
@@ -33,12 +34,34 @@ public class ProductoController {
     @PostMapping
     public String guardar(Producto producto) throws Exception {
         Optional<Categoria> categoria = categoriaService.obtenerPorId(producto.getCategoria().getId());
-        if (categoria.isPresent()){
+        if (categoria.isPresent()) {
             producto.setCategoria(categoria.get());
             productoService.guardarProducto(producto);
         } else {
             throw new Exception("La categoria no existe en la aplicacion");
         }
         return "redirect:/productos";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id) {
+        productoService.eliminar(id);
+        return "redirect:/productos";
+    }
+
+    @GetMapping("/ejecutar/{parametro}/{filtro1}/{filtro2}")
+    public String ejecutar(@PathVariable("parametro") String parametro, @PathVariable("filtro1") String filtro1, @PathVariable("filtro2") String filtro2, Model model) {
+        //Debemos de rellenar productos y categorías para que no de error la página
+        model.addAttribute("productos", productoService.listarProductos());
+        model.addAttribute("categorias", categoriaService.listarCategoria());
+        //Almcenaremos en la variable "resultado" el resultado de la consulta y lo mostraremos en el HTML
+        if (parametro.equals("buscarProductosPrecioMenorQue")) {
+            model.addAttribute("resultado", productoService.obtenerProductosPrecioMenor(Double.parseDouble(filtro1)));
+        } else if (parametro.equals("buscarProductosPrecioMayorQue")) {
+            //  model.addAttribute("resultado", productoService.buscarProductosPrecioMayorQue(Double.parseDouble(filtro1)));
+        }
+
+        //TODO añade el resto de métodos siguiendo la estructura del if-else-if
+        return "productos";
     }
 }

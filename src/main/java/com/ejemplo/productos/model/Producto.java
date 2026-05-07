@@ -1,6 +1,7 @@
 package com.ejemplo.productos.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Id;
 
 @Entity
 @Table(name = "productos")
@@ -14,7 +15,8 @@ public class Producto {
     private Double precio;
     @Column(name = "descripcion", nullable = false, length = 500)
     private String descripcion;
-    //TODO pendiente crear relacion
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     @Transient //No detecta el campo como columna

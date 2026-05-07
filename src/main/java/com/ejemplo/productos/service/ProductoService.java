@@ -3,6 +3,7 @@ package com.ejemplo.productos.service;
 import com.ejemplo.productos.model.Categoria;
 import com.ejemplo.productos.model.Producto;
 import com.ejemplo.productos.repository.ProductoRepository;
+import jakarta.annotation.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +45,17 @@ public class ProductoService {
 
     public void eliminarProducto(Long id) {
         productoRepository.deleteById(id);
+    }
+
+    public void eliminar(Long id) {
+        productoRepository.deleteById(id);
+    }
+
+    public @Nullable List<Producto> obtenerProductosPrecioMenor(double precio){
+        if (precio != 0.0){
+            return productoRepository.findByPrecioLessThan(precio);
+        } else {
+            throw new IllegalArgumentException("El precio no puede estar a 0");
+        }
     }
 }

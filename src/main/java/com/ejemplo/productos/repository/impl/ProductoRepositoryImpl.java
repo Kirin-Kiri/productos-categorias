@@ -1,3 +1,4 @@
+/*
 package com.ejemplo.productos.repository.impl;
 
 import com.ejemplo.productos.model.Categoria;
@@ -57,3 +58,4 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         }
     }
 }
+ */

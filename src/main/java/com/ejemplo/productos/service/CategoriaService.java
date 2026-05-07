@@ -1,7 +1,9 @@
 package com.ejemplo.productos.service;
 
 import com.ejemplo.productos.model.Categoria;
+import com.ejemplo.productos.model.Producto;
 import com.ejemplo.productos.repository.CategoriaRepository;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +41,9 @@ public class CategoriaService {
 
     public void eliminarCategoria(Long id) {
         categoriaRepository.deleteById(id);
+    }
+
+    public List<Categoria> listarCategoria() {
+        return categoriaRepository.findAll();
     }
 }
