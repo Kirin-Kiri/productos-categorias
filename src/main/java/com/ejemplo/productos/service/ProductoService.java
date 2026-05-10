@@ -1,6 +1,5 @@
 package com.ejemplo.productos.service;
 
-import com.ejemplo.productos.model.Categoria;
 import com.ejemplo.productos.model.Producto;
 import com.ejemplo.productos.repository.ProductoRepository;
 import jakarta.annotation.Nullable;
@@ -51,11 +50,68 @@ public class ProductoService {
         productoRepository.deleteById(id);
     }
 
-    public @Nullable List<Producto> obtenerProductosPrecioMenor(double precio){
-        if (precio != 0.0){
+    public @Nullable List<Producto> obtenerProductosPrecioMenor(double precio) {
+        if (precio != 0.0) {
             return productoRepository.findByPrecioLessThan(precio);
         } else {
             throw new IllegalArgumentException("El precio no puede estar a 0");
         }
+    }
+
+    public @Nullable List<Producto> buscarProductosPrecioMayorQue(double precio) {
+        return productoRepository.findByPrecioGreaterThan(precio);
+    }
+
+    public @Nullable List<Producto> buscarProducto(String nombre) {
+        return productoRepository.findByNombreIs(nombre);
+    }
+
+    public @Nullable List<Producto> buscarProductosContienePortatil(String nombre) {
+        return productoRepository.findByNombreContaining(nombre);
+    }
+
+
+    public @Nullable List<Producto> buscarProductosEmpiezaDisco(String nombre) {
+        return productoRepository.findByNombreStartingWith(nombre.toUpperCase());
+    }
+
+    public @Nullable List<Producto> buscarProductoTerminen(String nombre) {
+        return productoRepository.findByNombreEndingWith(nombre.toUpperCase());
+    }
+
+    public @Nullable List<Producto> buscarProductosComponentes(String categoria) {
+        return productoRepository.findByCategoria_NombreIs(categoria);
+    }
+
+    public @Nullable List<Producto> buscarPerifericosMenor100(String categoria, double precio) {
+        return productoRepository.findByCategoria_NombreIsAndPrecioLessThan(categoria, precio);
+    }
+
+    public @Nullable List<Producto> buscarAlmacenamientoDisco(String categoria, String nombre) {
+        return productoRepository.findByCategoria_NombreIsAndNombreContaining(categoria, nombre);
+    }
+
+    public @Nullable List<Producto> buscarRedesMenor100(String categoria, double precio) {
+        return productoRepository.findByCategoria_NombreIsAndPrecioLessThan(categoria, precio);
+    }
+
+    public @Nullable List<Producto> buscarSSDPrecioMenor30(String nombre, double precio) {
+        return productoRepository.findByNombreContainingOrPrecioLessThan(nombre, precio);
+    }
+
+    public @Nullable List<Producto> productosOrdenadosPrecioAsc(double precio) {
+        return productoRepository.findByOrderByPrecioAsc(precio);
+    }
+
+    public @Nullable List<Producto> portatilesOrdenadosPrecioDesc(String categoria, double precio) {
+        return productoRepository.findByCategoria_NombreIsOrderByPrecioDesc(categoria, precio);
+    }
+
+    public @Nullable List<Producto> productosEntre50y200(double precio1, double precio2) {
+        return productoRepository.findByPrecioBetween(precio1, precio2);
+    }
+
+    public @Nullable List<Producto> componentesMayor100(String categoria, double precio) {
+        return productoRepository.findByCategoria_NombreIsAndPrecioGreaterThan(categoria, precio);
     }
 }

@@ -58,8 +58,36 @@ public class ProductoController {
         if (parametro.equals("buscarProductosPrecioMenorQue")) {
             model.addAttribute("resultado", productoService.obtenerProductosPrecioMenor(Double.parseDouble(filtro1)));
         } else if (parametro.equals("buscarProductosPrecioMayorQue")) {
-            //  model.addAttribute("resultado", productoService.buscarProductosPrecioMayorQue(Double.parseDouble(filtro1)));
+            model.addAttribute("resultado", productoService.buscarProductosPrecioMayorQue(Double.parseDouble(filtro1)));
+        } else if (parametro.equals("buscarProducto")) {
+            model.addAttribute("resultado", productoService.buscarProducto(filtro1));
+        } else if (parametro.equals("buscarProductosContienePortatil")) {
+            model.addAttribute("resultado", productoService.buscarProductosContienePortatil(filtro1));
+        } else if (parametro.equals("buscarProductosEmpiezaDisco")) {
+            model.addAttribute("resultado", productoService.buscarProductosEmpiezaDisco(filtro1));
+        } else if (parametro.equals("buscarProductoTerminen")) {
+            model.addAttribute("resultado", productoService.buscarProductoTerminen(filtro1));
+        } else if (parametro.equals("buscarProductosComponentes")) {
+            model.addAttribute("resultado", productoService.buscarProductosComponentes(filtro1));
+        } else if (parametro.equals("buscarPerifericosMenor100")) {
+            model.addAttribute("resultado", productoService.buscarPerifericosMenor100((filtro1),Double.parseDouble(filtro2)));
+        } else if (parametro.equals("buscarAlmacenamientoDisco")) {
+            model.addAttribute("resultado", productoService.buscarAlmacenamientoDisco((filtro1),(filtro2)));
+        } else if (parametro.equals("buscarRedesMenor100")) {
+            model.addAttribute("resultado", productoService.buscarRedesMenor100((filtro1),Double.parseDouble(filtro2)));
+        } else if (parametro.equals("buscarSSDPrecioMenor30")) {
+            model.addAttribute("resultado", productoService.buscarSSDPrecioMenor30((filtro1),Double.parseDouble(filtro2)));
+        } else if (parametro.equals("productosOrdenadosPrecioAsc")) {
+            model.addAttribute("resultado", productoService.productosOrdenadosPrecioAsc(Double.parseDouble(filtro1)));
+        } else if (parametro.equals("portatilesOrdenadosPrecioDesc")) {
+            model.addAttribute("resultado", productoService.portatilesOrdenadosPrecioDesc((filtro1),Double.parseDouble(filtro2)));
+        } else if (parametro.equals("productosEntre50y200")) {
+            model.addAttribute("resultado", productoService.productosEntre50y200(Double.parseDouble(filtro1),Double.parseDouble(filtro2)));
+        } else if (parametro.equals("componentesMayor100")) {
+            model.addAttribute("resultado", productoService.componentesMayor100((filtro1),Double.parseDouble(filtro2)));
         }
+
+
 
         //TODO añade el resto de métodos siguiendo la estructura del if-else-if
         return "productos";
