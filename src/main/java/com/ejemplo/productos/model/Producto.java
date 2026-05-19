@@ -4,16 +4,16 @@ import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "producto")
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nombre_producto", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     @Column(name = "precio", nullable = true)
     private Double precio;
-    @Column(name = "descripcion", nullable = false, length = 500)
+    @Column(name = "descripcion", nullable = true, length = 500)
     private String descripcion;
     @ManyToOne
     @JoinColumn(name = "categoria_id")

@@ -6,12 +6,12 @@ import jakarta.persistence.Id;
 import java.util.List;
 
 @Entity
-@Table(name = "categorias")
+@Table(name = "categoria")
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nombre_categoria", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
